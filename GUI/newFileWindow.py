@@ -10,7 +10,6 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
 class Ui_newFileWindow(object):
     def setupUi(self, newFileWindow):
         newFileWindow.setObjectName("newFileWindow")

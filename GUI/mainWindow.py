@@ -11,6 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GUI.newFileWindow import Ui_newFileWindow
 from GUI.newBoxWindow import Ui_newBoxWindow
+from model import *
 
 class Ui_MainWindow(object):
 
@@ -22,7 +23,7 @@ class Ui_MainWindow(object):
         self.boxTable = QtWidgets.QTableWidget(self.centralwidget)
         self.boxTable.setGeometry(QtCore.QRect(50, 150, 321, 351))
         self.boxTable.setObjectName("boxTable")
-        self.boxTable.setColumnCount(3)
+        self.boxTable.setColumnCount(2)
         self.boxTable.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.boxTable.setHorizontalHeaderItem(0, item)
@@ -100,6 +101,9 @@ class Ui_MainWindow(object):
         self.newFileButton.clicked.connect(self.open_new_file_window)
         self.newBoxButton.clicked.connect(self.open_new_box_window)
 
+        # Load data on load
+        self.load_data()
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -107,8 +111,8 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Box #"))
         item = self.boxTable.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Shelf #"))
-        item = self.boxTable.horizontalHeaderItem(2)
-        item.setText(_translate("MainWindow", "File Count"))
+        #item = self.boxTable.horizontalHeaderItem(2)
+        #item.setText(_translate("MainWindow", "File Count"))
         item = self.fileTable.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Box #"))
         item = self.fileTable.horizontalHeaderItem(1)
@@ -133,7 +137,7 @@ class Ui_MainWindow(object):
         self.boxSearchButton.setText(_translate("MainWindow", "Search"))
         self.fileSearchComboBox_2.setItemText(0, _translate("MainWindow", "Box #"))
         self.fileSearchComboBox_2.setItemText(1, _translate("MainWindow", "Shelf #"))
-        self.fileSearchComboBox_2.setItemText(2, _translate("MainWindow", "File Count"))
+        #self.fileSearchComboBox_2.setItemText(2, _translate("MainWindow", "File Count"))
 
     # Open newFileWindow
     def open_new_file_window(self):
@@ -148,3 +152,38 @@ class Ui_MainWindow(object):
         self.ui = Ui_newBoxWindow()
         self.ui.setupUi(self.window)
         self.window.show()
+
+    # Load data into tables on load
+    def load_data(self):
+        # Load Files
+        files = select_all_from_files()
+        self.fileTable.setRowCount(len(files))
+        
+        table_row = 0
+        for row in files:
+            self.fileTable.setItem(table_row, 0, QtWidgets.QTableWidgetItem(str(row[1])))
+            self.fileTable.setItem(table_row, 1, QtWidgets.QTableWidgetItem(row[2]))
+            self.fileTable.setItem(table_row, 2, QtWidgets.QTableWidgetItem(row[3]))
+            self.fileTable.setItem(table_row, 3, QtWidgets.QTableWidgetItem(row[4]))
+            self.fileTable.setItem(table_row, 4, QtWidgets.QTableWidgetItem(row[5]))
+            self.fileTable.setItem(table_row, 5, QtWidgets.QTableWidgetItem(row[6]))
+            table_row += 1
+
+        # Load Boxes
+        boxes = select_all_from_boxes()
+        self.boxTable.setRowCount(len(boxes))
+
+        table_row = 0
+        for row in boxes:
+            self.boxTable.setItem(table_row, 0, QtWidgets.QTableWidgetItem(str(row[0])))
+            self.boxTable.setItem(table_row, 1, QtWidgets.QTableWidgetItem(row[1]))
+            table_row += 1
+
+def show_main_window():
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
