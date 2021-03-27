@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets
-from GUI.mainWindow import *
+from GUI.Controllers.mainWindow_main import *
 
 if __name__ == "__main__":
     # Show UI

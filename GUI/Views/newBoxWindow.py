@@ -12,6 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_newBoxWindow(object):
+    
     def setupUi(self, newBoxWindow):
         newBoxWindow.setObjectName("newBoxWindow")
         newBoxWindow.resize(244, 269)
@@ -60,11 +61,11 @@ class Ui_newBoxWindow(object):
         self.pushButton_2.setText(_translate("newBoxWindow", "Cancel"))
 
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    newBoxWindow = QtWidgets.QDialog()
-    ui = Ui_newBoxWindow()
-    ui.setupUi(newBoxWindow)
-    newBoxWindow.show()
-    sys.exit(app.exec_())
+# if __name__ == "__main__":
+#     import sys
+#     app = QtWidgets.QApplication(sys.argv)
+#     newBoxWindow = QtWidgets.QDialog()
+#     ui = Ui_newBoxWindow()
+#     ui.setupUi(newBoxWindow)
+#     newBoxWindow.show()
+#     sys.exit(app.exec_())

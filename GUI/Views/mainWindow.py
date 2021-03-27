@@ -9,9 +9,6 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from GUI.newFileWindow import Ui_newFileWindow
-from GUI.newBoxWindow import Ui_newBoxWindow
-from model import *
 
 class Ui_MainWindow(object):
 
@@ -97,12 +94,6 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        # Hook newFileButton and newBoxButton up to their respective functions
-        self.newFileButton.clicked.connect(self.open_new_file_window)
-        self.newBoxButton.clicked.connect(self.open_new_box_window)
-
-        # Load data on load
-        self.load_data()
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -139,51 +130,5 @@ class Ui_MainWindow(object):
         self.fileSearchComboBox_2.setItemText(1, _translate("MainWindow", "Shelf #"))
         #self.fileSearchComboBox_2.setItemText(2, _translate("MainWindow", "File Count"))
 
-    # Open newFileWindow
-    def open_new_file_window(self):
-        self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_newFileWindow()
-        self.ui.setupUi(self.window)
-        self.window.show()
 
-    # Open newBoxWindow
-    def open_new_box_window(self):
-        self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_newBoxWindow()
-        self.ui.setupUi(self.window)
-        self.window.show()
 
-    # Load data into tables on load
-    def load_data(self):
-        # Load Files
-        files = select_all_from_files()
-        self.fileTable.setRowCount(len(files))
-        
-        table_row = 0
-        for row in files:
-            self.fileTable.setItem(table_row, 0, QtWidgets.QTableWidgetItem(str(row[1])))
-            self.fileTable.setItem(table_row, 1, QtWidgets.QTableWidgetItem(row[2]))
-            self.fileTable.setItem(table_row, 2, QtWidgets.QTableWidgetItem(row[3]))
-            self.fileTable.setItem(table_row, 3, QtWidgets.QTableWidgetItem(row[4]))
-            self.fileTable.setItem(table_row, 4, QtWidgets.QTableWidgetItem(row[5]))
-            self.fileTable.setItem(table_row, 5, QtWidgets.QTableWidgetItem(row[6]))
-            table_row += 1
-
-        # Load Boxes
-        boxes = select_all_from_boxes()
-        self.boxTable.setRowCount(len(boxes))
-
-        table_row = 0
-        for row in boxes:
-            self.boxTable.setItem(table_row, 0, QtWidgets.QTableWidgetItem(str(row[0])))
-            self.boxTable.setItem(table_row, 1, QtWidgets.QTableWidgetItem(row[1]))
-            table_row += 1
-
-def show_main_window():
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
