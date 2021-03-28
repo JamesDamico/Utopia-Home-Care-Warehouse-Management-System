@@ -17,11 +17,14 @@ def select_all_from_boxes():
 
 # Add new file
 def add_new_file(form_data):
-    print("Model")
-    print(form_data)
-
     insert_query = "INSERT INTO files (box_number, type, last_name, first_name, office, year) VALUES (?,?,?,?,?,?)"
     #insert_query = "INSERT INTO files (box_number, type, last_name, first_name, office, year) VALUES (5, 'test', 'test', 'test', 'test', 'test')"
     c.execute(insert_query, form_data) 
     conn.commit()
+
+# Check if a box number exists 
+def box_number_exists(num):
+    return list(c.execute(f"SELECT * FROM boxes WHERE box_number IS {num}")) != []
+
+    
 
