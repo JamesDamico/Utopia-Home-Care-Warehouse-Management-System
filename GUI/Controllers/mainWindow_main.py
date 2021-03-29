@@ -18,19 +18,22 @@ class MainWindow(QMainWindow):
         self.ui.newFileButton.clicked.connect(self.open_new_file_window)
         self.ui.newBoxButton.clicked.connect(self.open_new_box_window)
 
+        # Connect search button to search function
+        self.ui.fileSearchButton.clicked.connect(self.search)
+
         # Load data on load
         self.load_data()
 
 
     # Open newFileWindow
     def open_new_file_window(self): 
-        new_ui = NewFileWindow()
+        new_ui = NewFileWindow(self)
         new_ui.exec()
 
 
     # Open newBoxWindow
     def open_new_box_window(self):
-        new_ui = NewBoxWindow()
+        new_ui = NewBoxWindow(self)
         new_ui.exec()
 
 
@@ -60,6 +63,9 @@ class MainWindow(QMainWindow):
             self.ui.boxTable.setItem(table_row, 1, QtWidgets.QTableWidgetItem(row[1]))
             table_row += 1
 
+    def search(self):
+        pass
+
 
 def show_main_window():
     app = QApplication(sys.argv)
@@ -67,3 +73,6 @@ def show_main_window():
 
     win.show()
     sys.exit(app.exec_())
+
+def reload_tables():
+    print("Testing")

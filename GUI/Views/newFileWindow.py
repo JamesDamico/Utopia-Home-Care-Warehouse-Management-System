@@ -9,7 +9,6 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from model import *
 
 
 class Ui_newFileWindow(object):

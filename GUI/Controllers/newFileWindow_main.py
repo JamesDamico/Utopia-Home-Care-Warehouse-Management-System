@@ -13,7 +13,10 @@ class NewFileWindow(QDialog):
         # Connect addFileButton to add_file()
         self.ui.addFileButton.clicked.connect(lambda: self.add_file())
 
+        # Connect cancelButton to close function
+        self.ui.cancelButton.clicked.connect(lambda: self.close())
 
+    
     def add_file(self):
         # Check if any fields are empty
         if self.ui.boxNumberInput.text() == "":
@@ -50,6 +53,7 @@ class NewFileWindow(QDialog):
         else:
             self.close()
             self.show_popup("Success", f"You have added {form_data[2]} {form_data[3]} to Box {form_data[0]}")
+        self.parent().load_data()
 
 
     def show_popup(self, popup_type, popup_msg):
@@ -75,5 +79,3 @@ class NewFileWindow(QDialog):
         msg.setStandardButtons(QMessageBox.Cancel)
 
         x = msg.exec_()
-
-

@@ -7,24 +7,50 @@ conn = sqlite3.connect("UHC_Warehouse_db.db")
 # Create cursor object
 c = conn.cursor()
 
+##########
+# SELECT #
+##########
+
 # Select all data from files table
 def select_all_from_files():
     return list(c.execute("SELECT * FROM files"))
+
 
 # Select all data from boxes table
 def select_all_from_boxes():
     return list(c.execute("SELECT * FROM boxes"))
 
-# Add new file
-def add_new_file(form_data):
-    insert_query = "INSERT INTO files (box_number, type, last_name, first_name, office, year) VALUES (?,?,?,?,?,?)"
-    #insert_query = "INSERT INTO files (box_number, type, last_name, first_name, office, year) VALUES (5, 'test', 'test', 'test', 'test', 'test')"
-    c.execute(insert_query, form_data) 
-    conn.commit()
 
 # Check if a box number exists 
 def box_number_exists(num):
     return list(c.execute(f"SELECT * FROM boxes WHERE box_number IS {num}")) != []
+
+##########
+# INSERT #
+##########
+
+# Add new file
+def add_new_file(form_data):
+    insert_query = "INSERT INTO files (box_number, type, first_name, last_name, office, year) VALUES (?,?,?,?,?,?)"
+    c.execute(insert_query, form_data) 
+    conn.commit()
+
+# Add new box
+def add_new_box(generate, form_data):
+    if generate == "auto":
+        print(form_data)
+        insert_query = "INSERT INTO boxes (shelf_number) VALUES (?)"
+        c.execute(insert_query, form_data)
+        conn.commit()
+        return c.lastrowid
+    elif generate == "manual":
+        insert_query = "INSERT INTO boxes (box_number, shelf_number) VALUES (?,?)"    
+        c.execute(insert_query, form_data) 
+        conn.commit()
+
+
+
+
 
     
 
