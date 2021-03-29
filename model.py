@@ -31,7 +31,7 @@ def search_query(table, field, text):
     if field == "box_number":
         return list(c.execute(f"SELECT * FROM {table} WHERE {field} IS {text}"))
     else:
-        return list(c.execute(f"SELECT * FROM {table} WHERE {field} IS '{text}'"))
+        return list(c.execute(f"SELECT * FROM {table} WHERE UPPER({field}) LIKE('%{text}%')"))
 
 
 ##########
