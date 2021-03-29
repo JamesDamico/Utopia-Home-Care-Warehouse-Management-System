@@ -25,6 +25,15 @@ def select_all_from_boxes():
 def box_number_exists(num):
     return list(c.execute(f"SELECT * FROM boxes WHERE box_number IS {num}")) != []
 
+
+# Return search data
+def search_query(table, field, text):
+    if field == "box_number":
+        return list(c.execute(f"SELECT * FROM {table} WHERE {field} IS {text}"))
+    else:
+        return list(c.execute(f"SELECT * FROM {table} WHERE {field} IS '{text}'"))
+
+
 ##########
 # INSERT #
 ##########
@@ -34,6 +43,7 @@ def add_new_file(form_data):
     insert_query = "INSERT INTO files (box_number, type, first_name, last_name, office, year) VALUES (?,?,?,?,?,?)"
     c.execute(insert_query, form_data) 
     conn.commit()
+
 
 # Add new box
 def add_new_box(generate, form_data):
