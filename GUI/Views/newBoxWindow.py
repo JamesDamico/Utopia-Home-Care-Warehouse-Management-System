@@ -51,20 +51,10 @@ class Ui_newBoxWindow(object):
 
     def retranslateUi(self, newBoxWindow):
         _translate = QtCore.QCoreApplication.translate
-        newBoxWindow.setWindowTitle(_translate("newBoxWindow", "Dialog"))
+        newBoxWindow.setWindowTitle(_translate("newBoxWindow", "New Box"))
         self.manualRadioButton.setText(_translate("newBoxWindow", "Manual"))
         self.autoGenRadioButton.setText(_translate("newBoxWindow", "Auto Generate"))
         self.label.setText(_translate("newBoxWindow", "Box Number:"))
         self.label_2.setText(_translate("newBoxWindow", "Shelf Number:"))
         self.addBoxButton.setText(_translate("newBoxWindow", "Add Box"))
         self.cancelButton.setText(_translate("newBoxWindow", "Cancel"))
-
-
-# if __name__ == "__main__":
-#     import sys
-#     app = QtWidgets.QApplication(sys.argv)
-#     newBoxWindow = QtWidgets.QDialog()
-#     ui = Ui_newBoxWindow()
-#     ui.setupUi(newBoxWindow)
-#     newBoxWindow.show()
-#     sys.exit(app.exec_())

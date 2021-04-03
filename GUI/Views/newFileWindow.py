@@ -101,7 +101,7 @@ class Ui_newFileWindow(object):
 
     def retranslateUi(self, newFileWindow):
         _translate = QtCore.QCoreApplication.translate
-        newFileWindow.setWindowTitle(_translate("newFileWindow", "Dialog"))
+        newFileWindow.setWindowTitle(_translate("newFileWindow", "New File"))
         self.label_3.setText(_translate("newFileWindow", "Box Number:"))
         self.label_4.setText(_translate("newFileWindow", "Type:"))
         self.typeComboBox.setItemText(0, _translate("newFileWindow", "Clinical"))
@@ -130,11 +130,3 @@ class Ui_newFileWindow(object):
         self.cancelButton.setText(_translate("newFileWindow", "Cancel"))
 
 
-# if __name__ == "__main__":
-#     import sys
-#     app = QtWidgets.QApplication(sys.argv)
-#     newFileWindow = QtWidgets.QDialog()
-#     ui = Ui_newFileWindow()
-#     ui.setupUi(newFileWindow)
-#     newFileWindow.show()
-#     sys.exit(app.exec_())

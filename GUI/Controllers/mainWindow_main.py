@@ -2,6 +2,8 @@ import sys
 from GUI.Views.mainWindow import Ui_MainWindow
 from GUI.Controllers.newFileWindow_main import NewFileWindow
 from GUI.Controllers.newBoxWindow_main import NewBoxWindow
+from GUI.Controllers.editFileWindow_main import EditFileWindow
+from GUI.Controllers.editBoxWindow_main import EditBoxWindow
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from model import *
@@ -14,6 +16,9 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        self.current_file_data = None
+        self.current_box_data = None
+
         # Connect newFileButton and newBoxButton up to their respective functions
         self.ui.newFileButton.clicked.connect(self.open_new_file_window)
         self.ui.newBoxButton.clicked.connect(self.open_new_box_window)
@@ -22,8 +27,47 @@ class MainWindow(QMainWindow):
         self.ui.fileSearchButton.clicked.connect(self.file_search)
         self.ui.boxSearchButton.clicked.connect(self.box_search)
 
-        # Load data on load
+        # Load data
         self.load_data()
+
+        # Event Filter
+        self.ui.fileTable.viewport().installEventFilter(self)
+        self.ui.boxTable.viewport().installEventFilter(self)
+
+
+    # Capture double click event 
+    def eventFilter(self, source, event):
+        # File Table
+        if (event.type() == QtCore.QEvent.MouseButtonDblClick and
+            event.buttons() == QtCore.Qt.LeftButton and
+            source is self.ui.fileTable.viewport()):
+            item = self.ui.fileTable.itemAt(event.pos())
+            if item is not None:
+                print('dblclick:', item.row(), item.column())
+                self.open_file_edit_window(item.row())
+        
+        # Box Table
+        if (event.type() == QtCore.QEvent.MouseButtonDblClick and
+            event.buttons() == QtCore.Qt.LeftButton and
+            source is self.ui.boxTable.viewport()):
+            item = self.ui.boxTable.itemAt(event.pos())
+            if item is not None:
+                print('dblclick:', item.row(), item.column())
+                self.open_box_edit_window(item.row())
+
+        return super(MainWindow, self).eventFilter(source, event)
+
+
+    def open_file_edit_window(self, row):
+        new_ui = EditFileWindow(self)
+        new_ui.pass_data(self.current_file_data[row])
+        new_ui.exec()
+
+
+    def open_box_edit_window(self, row):
+        new_ui = EditBoxWindow(self)
+        new_ui.pass_data(self.current_box_data[row])
+        new_ui.exec()
 
 
     # Open newFileWindow
@@ -91,6 +135,9 @@ class MainWindow(QMainWindow):
 
     # Load the file table
     def load_file_table(self, data):
+        # Setting current data
+        self.current_file_data = data
+
         self.clear_file_table()
         self.ui.fileTable.setRowCount(len(data))
         
@@ -107,6 +154,9 @@ class MainWindow(QMainWindow):
     
     # Load the box table
     def load_box_table(self, data):
+        # Setting current data
+        self.current_box_data = data
+
         self.clear_box_table()
         self.ui.boxTable.setRowCount(len(data))
 
