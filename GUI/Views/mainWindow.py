@@ -129,7 +129,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Utopia Home Care Warehouse Management System"))
         self.newBoxButton.setText(_translate("MainWindow", "New Box"))
         item = self.boxTable.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Box #"))
