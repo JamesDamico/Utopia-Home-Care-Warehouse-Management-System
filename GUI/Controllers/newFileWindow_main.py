@@ -36,8 +36,14 @@ class NewFileWindow(QDialog):
             self.show_popup("Error", msg)
             return
 
+        try:
+            exists = box_number_exists(self.ui.boxNumberInput.text())
+        except:
+            self.show_popup("Error", "Box Number must be a whole number")
+            return
+
         # Check if the box number exists
-        if not box_number_exists(self.ui.boxNumberInput.text()):
+        if not exists:
             msg = f"Box {self.ui.boxNumberInput.text()} does not exist. Either enter a different box number or create a new box."
             self.show_popup("Error", msg)
             return

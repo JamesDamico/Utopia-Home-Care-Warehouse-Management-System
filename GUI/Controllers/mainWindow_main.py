@@ -4,7 +4,7 @@ from GUI.Controllers.newFileWindow_main import NewFileWindow
 from GUI.Controllers.newBoxWindow_main import NewBoxWindow
 from GUI.Controllers.editFileWindow_main import EditFileWindow
 from GUI.Controllers.editBoxWindow_main import EditBoxWindow
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from model import *
 
@@ -18,6 +18,9 @@ class MainWindow(QMainWindow):
 
         self.current_file_data = None
         self.current_box_data = None
+
+        # Set Window Icon
+        # self.ui.setWindowIcon(QtGui.QIcon("../Images/dbicon.png"))
 
         # Connect newFileButton and newBoxButton up to their respective functions
         self.ui.newFileButton.clicked.connect(self.open_new_file_window)
@@ -43,7 +46,7 @@ class MainWindow(QMainWindow):
             source is self.ui.fileTable.viewport()):
             item = self.ui.fileTable.itemAt(event.pos())
             if item is not None:
-                print('dblclick:', item.row(), item.column())
+                #print('dblclick:', item.row(), item.column())
                 self.open_file_edit_window(item.row())
         
         # Box Table
@@ -52,7 +55,7 @@ class MainWindow(QMainWindow):
             source is self.ui.boxTable.viewport()):
             item = self.ui.boxTable.itemAt(event.pos())
             if item is not None:
-                print('dblclick:', item.row(), item.column())
+                #print('dblclick:', item.row(), item.column())
                 self.open_box_edit_window(item.row())
 
         return super(MainWindow, self).eventFilter(source, event)

@@ -31,12 +31,18 @@ class NewBoxWindow(QDialog):
             self.show_popup("Error", "Box Number can't be empty")
             return
 
-        # Check if the box number already exists
-        if self.ui.autoGenRadioButton.isChecked():
-            pass
-        elif box_number_exists(self.ui.boxNumberInput.text()):
-            self.show_popup("Error", f"Box {self.ui.boxNumberInput.text()} already exists.")
-            return    
+        if not self.ui.autoGenRadioButton.isChecked():
+            try:
+                exists = box_number_exists(self.ui.boxNumberInput.text())
+            except:
+                self.show_popup("Error", "Box Number must be a whole number")
+                return
+
+            # Check if the box number exists
+            if exists:
+                msg = f"Box {self.ui.boxNumberInput.text()} already exists. Enter a different box number."
+                self.show_popup("Error", msg)
+                return 
         
         # Try and add to database
         if self.ui.autoGenRadioButton.isChecked():
