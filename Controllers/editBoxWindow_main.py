@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
-from GUI.Views.editBoxWindow import Ui_editBoxWindow
-from model import *
+from Views.editBoxWindow import Ui_editBoxWindow
+from Model.model import *
 
 class EditBoxWindow(QDialog):
     

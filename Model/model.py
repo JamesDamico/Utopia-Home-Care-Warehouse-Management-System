@@ -49,7 +49,6 @@ def add_new_file(form_data):
 # Add new box
 def add_new_box(generate, form_data):
     if generate == "auto":
-        print(form_data)
         insert_query = "INSERT INTO boxes (shelf_number) VALUES (?)"
         c.execute(insert_query, form_data)
         conn.commit()

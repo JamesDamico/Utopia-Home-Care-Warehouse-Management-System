@@ -1,12 +1,12 @@
 import sys
-from GUI.Views.mainWindow import Ui_MainWindow
-from GUI.Controllers.newFileWindow_main import NewFileWindow
-from GUI.Controllers.newBoxWindow_main import NewBoxWindow
-from GUI.Controllers.editFileWindow_main import EditFileWindow
-from GUI.Controllers.editBoxWindow_main import EditBoxWindow
+from Views.mainWindow import Ui_MainWindow
+from Controllers.newFileWindow_main import NewFileWindow
+from Controllers.newBoxWindow_main import NewBoxWindow
+from Controllers.editFileWindow_main import EditFileWindow
+from Controllers.editBoxWindow_main import EditBoxWindow
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
-from model import *
+from Model.model import *
 
 
 class MainWindow(QMainWindow):
@@ -106,9 +106,15 @@ class MainWindow(QMainWindow):
             self.ui.fileSearchInput.setText("")
         elif self.ui.fileSearchInput.text() == "":
             self.show_popup("Error", "Must enter search term into input box")
+            return
         
         if combo_box_text == "Box #":
-            data = search_query("files", "box_number", input_text)
+            try:
+                data = search_query("files", "box_number", input_text)
+            except:
+                self.show_popup("Error", "Can only search for Box # by using a whole number.")
+                self.ui.fileSearchInput.setText("")
+                return
         elif combo_box_text == "Last Name":
             data = search_query("files", "last_name", input_text)
         elif combo_box_text == "Office":
@@ -129,9 +135,15 @@ class MainWindow(QMainWindow):
             self.ui.boxSearchInput.setText("")
         elif self.ui.boxSearchInput.text() == "":
             self.show_popup("Error", "Must enter search term into input box")
+            return
         
         if combo_box_text == "Box #":
-            data = search_query("boxes", "box_number", input_text)
+            try:
+                data = search_query("boxes", "box_number", input_text)
+            except:
+                self.show_popup("Error", "Can only search for Box # by using a whole number.")
+                self.ui.boxSearchInput.setText("")
+                return
         elif combo_box_text == "Shelf #":
             data = search_query("boxes", "shelf_number", input_text)
 

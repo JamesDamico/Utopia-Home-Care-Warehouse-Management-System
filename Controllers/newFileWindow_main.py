@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
-from GUI.Views.newFileWindow import Ui_newFileWindow
-from model import *
+from Views.newFileWindow import Ui_newFileWindow
+from Model.model import *
 
 class NewFileWindow(QDialog):
     

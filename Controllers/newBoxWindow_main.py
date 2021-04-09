@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
-from GUI.Views.newBoxWindow import Ui_newBoxWindow
-from model import *
+from Views.newBoxWindow import Ui_newBoxWindow
+from Model.model import *
 
 class NewBoxWindow(QDialog):
     

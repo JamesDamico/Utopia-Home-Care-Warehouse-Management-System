@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
-from GUI.Views.editFileWindow import Ui_editFileWindow
-from model import *
+from Views.editFileWindow import Ui_editFileWindow
+from Model.model import *
 
 class EditFileWindow(QDialog):
     
@@ -137,8 +137,8 @@ class EditFileWindow(QDialog):
     def load_input_fields(self, data):
         self.ui.boxNumberInput.setText(str(self.data[1]))
         self.ui.typeComboBox.setCurrentText(self.data[2])
-        self.ui.firstNameInput.setText(self.data[3])
-        self.ui.lastNameInput.setText(self.data[4])
+        self.ui.firstNameInput.setText(self.data[4])
+        self.ui.lastNameInput.setText(self.data[3])
         self.ui.officeComboBox.setCurrentText(self.data[5])
         self.ui.yearInput.setText(self.data[6])
 
