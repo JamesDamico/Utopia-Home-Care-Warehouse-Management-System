@@ -103,6 +103,7 @@ class MainWindow(QMainWindow):
 
         if combo_box_text == "All":
             data = select_all_from_files()
+            self.ui.fileSearchInput.setText("")
         elif self.ui.fileSearchInput.text() == "":
             self.show_popup("Error", "Must enter search term into input box")
         
@@ -125,6 +126,7 @@ class MainWindow(QMainWindow):
 
         if combo_box_text == "All":
             data = select_all_from_boxes()
+            self.ui.boxSearchInput.setText("")
         elif self.ui.boxSearchInput.text() == "":
             self.show_popup("Error", "Must enter search term into input box")
         

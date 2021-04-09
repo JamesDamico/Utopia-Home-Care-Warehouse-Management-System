@@ -75,5 +75,28 @@ def update_box(form_data):
     c.execute(update_query, form_data)
     conn.commit()
 
-    
+def set_box_number_null(box_num):
+    update_query = f"UPDATE files SET box_number = 'NULL' WHERE box_number = {box_num}"
+    c.execute(update_query)
+    conn.commit()
 
+##########
+# Delete #
+##########
+
+def delete_file(file_id):
+    delete_query = f"DELETE FROM files WHERE file_id = {file_id}"
+    c.execute(delete_query)
+    conn.commit()
+
+
+def delete_box(box_num):
+    delete_query = f"DELETE FROM boxes WHERE box_number = {box_num}"
+    c.execute(delete_query)
+    conn.commit()
+
+
+def delete_all_files(box_num):
+    delete_query = f"DELETE FROM files WHERE box_number = {box_num}"
+    c.execute(delete_query)
+    conn.commit()

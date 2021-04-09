@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_editFileWindow(object):
     def setupUi(self, newFileWindow):
         newFileWindow.setObjectName("newFileWindow")
-        newFileWindow.resize(264, 291)
+        newFileWindow.resize(264, 311)
         self.formLayout = QtWidgets.QFormLayout(newFileWindow)
         self.formLayout.setObjectName("formLayout")
         self.label_3 = QtWidgets.QLabel(newFileWindow)
@@ -104,17 +104,20 @@ class Ui_editFileWindow(object):
         self.formLayout.setItem(12, QtWidgets.QFormLayout.FieldRole, spacerItem5)
         self.cancelButton = QtWidgets.QPushButton(newFileWindow)
         self.cancelButton.setObjectName("cancelButton")
-        self.formLayout.setWidget(14, QtWidgets.QFormLayout.FieldRole, self.cancelButton)
+        self.formLayout.setWidget(15, QtWidgets.QFormLayout.FieldRole, self.cancelButton)
         self.saveFileButton = QtWidgets.QPushButton(newFileWindow)
         self.saveFileButton.setObjectName("saveFileButton")
         self.formLayout.setWidget(13, QtWidgets.QFormLayout.FieldRole, self.saveFileButton)
+        self.deleteButton = QtWidgets.QPushButton(newFileWindow)
+        self.deleteButton.setObjectName("deleteButton")
+        self.formLayout.setWidget(14, QtWidgets.QFormLayout.FieldRole, self.deleteButton)
 
         self.retranslateUi(newFileWindow)
         QtCore.QMetaObject.connectSlotsByName(newFileWindow)
 
     def retranslateUi(self, newFileWindow):
         _translate = QtCore.QCoreApplication.translate
-        newFileWindow.setWindowTitle(_translate("newFileWindow", "Edit File"))
+        newFileWindow.setWindowTitle(_translate("newFileWindow", "Dialog"))
         self.label_3.setText(_translate("newFileWindow", "Box Number:"))
         self.label_4.setText(_translate("newFileWindow", "Type:"))
         self.typeComboBox.setItemText(0, _translate("newFileWindow", "Clinical"))
@@ -142,4 +145,5 @@ class Ui_editFileWindow(object):
         self.label_8.setText(_translate("newFileWindow", "Year:"))
         self.cancelButton.setText(_translate("newFileWindow", "Cancel"))
         self.saveFileButton.setText(_translate("newFileWindow", "Save"))
+        self.deleteButton.setText(_translate("newFileWindow", "Delete"))
 
