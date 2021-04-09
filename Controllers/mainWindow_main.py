@@ -6,6 +6,7 @@ from Controllers.editFileWindow_main import EditFileWindow
 from Controllers.editBoxWindow_main import EditBoxWindow
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+from PyQt5.QtGui import QIcon
 from Model.model import *
 
 
@@ -18,9 +19,6 @@ class MainWindow(QMainWindow):
 
         self.current_file_data = None
         self.current_box_data = None
-
-        # Set Window Icon
-        # self.ui.setWindowIcon(QtGui.QIcon("../Images/dbicon.png"))
 
         # Connect newFileButton and newBoxButton up to their respective functions
         self.ui.newFileButton.clicked.connect(self.open_new_file_window)
@@ -222,6 +220,7 @@ class MainWindow(QMainWindow):
 
 def show_main_window():
     app = QApplication(sys.argv)
+    app.setWindowIcon(QIcon("Images/logo.jpg"))
     win = MainWindow()
 
     win.show()
