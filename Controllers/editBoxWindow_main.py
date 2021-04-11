@@ -10,6 +10,7 @@ class EditBoxWindow(QDialog):
         self.ui = Ui_editBoxWindow()
         self.ui.setupUi(self)
 
+        # Data that is sent into this window
         self.data = None
 
         # Connect saveBoxButton to add_file()
@@ -25,9 +26,11 @@ class EditBoxWindow(QDialog):
         self.ui.boxNumberInput.setDisabled(True)
 
 
-    # Save changes to a box
+    # Save a box
     def save_box(self):
-
+        """
+        Save changes made to the current box's data.
+        """
         try:
             form_data = (self.ui.shelfNumberInput.text(), self.ui.boxNumberInput.text())
             update_box(form_data)            
@@ -41,12 +44,17 @@ class EditBoxWindow(QDialog):
 
     # Delete a box
     def delete_box(self):
+        """
+        Delete a box from the database.
+        """
+
         # Confirm user want to delete box
         delete = self.delete_box_confirmation(self.data[0])
 
         # Ask if user want to delete all files inside 
         delete_files = self.delete_all_files_confirmation()
 
+        # If user wants to delete the box and all files inside:
         if delete_box and delete_files:
             try:
                 # Delete all files
@@ -57,6 +65,7 @@ class EditBoxWindow(QDialog):
                 self.show_popup("Error", "Problem deleting box.")
             else:
                 self.show_popup("Success", f"You have deleted Box {self.data[0]} and all files inside.")
+        # User just wants to delete the box and leave the files
         elif delete_box:
             try:
                 # Delete box
@@ -73,6 +82,11 @@ class EditBoxWindow(QDialog):
 
     # Confirm you want to delete the box
     def delete_box_confirmation(self, box_num):
+        """
+        Prompts the user to confirm if they want to delete the box from the database.
+
+        Takes in box_num as a parameter to let the user know what box they're deleting. 
+        """
         msg = f"Are you sure you want to delete Box {box_num}? This action cannot be undone."
 
         reply = QMessageBox.question(self, "Delete Box",
@@ -87,6 +101,9 @@ class EditBoxWindow(QDialog):
 
     # Ask if the user wants to delete all the files in the box
     def delete_all_files_confirmation(self):
+        """
+        Prompts the user to ask if they want to delete all the files inside the box.
+        """
         msg = f"Would you like to delete all files inside the box?"
 
         reply = QMessageBox.question(self, "Delete Files",
@@ -101,6 +118,11 @@ class EditBoxWindow(QDialog):
 
     # Error/Info Popups
     def show_popup(self, popup_type, popup_msg):
+        """
+        Display a popup with either an error or success message.
+
+        This function takes a popup_type which is either Error or Succes, and a popup_msg to be displayed.
+        """
         # Setup the MessageBox
         msg = QMessageBox()
 
@@ -127,13 +149,19 @@ class EditBoxWindow(QDialog):
 
     # Used by other classes to pass data to this popup
     def pass_data(self, data):
+        """
+        Takes in data as a parameter and sets self.data to whatever was passed in.
+        """
         self.data = data
-        self.load_input_fields(data)
+        self.load_input_fields()
 
 
     # Load data into input fields
-    def load_input_fields(self, data):
-        self.ui.boxNumberInput.setText(str(data[0]))
-        self.ui.shelfNumberInput.setText(data[1])
+    def load_input_fields(self):
+        """
+        Loads data into the input fields when dialog is displayed on screen.
+        """
+        self.ui.boxNumberInput.setText(str(self.data[0]))
+        self.ui.shelfNumberInput.setText(self.data[1])
 
 

@@ -38,6 +38,9 @@ class MainWindow(QMainWindow):
 
     # Capture double click event 
     def eventFilter(self, source, event):
+        """
+        Captures the double click event on box and file tables
+        """
         # File Table
         if (event.type() == QtCore.QEvent.MouseButtonDblClick and
             event.buttons() == QtCore.Qt.LeftButton and
@@ -59,13 +62,29 @@ class MainWindow(QMainWindow):
         return super(MainWindow, self).eventFilter(source, event)
 
 
+    # Display file edit window
     def open_file_edit_window(self, row):
+        """
+        Will display the file edit window with the correct data from the row the 
+        user clicked on.
+
+        Takes in a parameter "row" which is the data from the row that was 
+        double clicked.
+        """
         new_ui = EditFileWindow(self)
         new_ui.pass_data(self.current_file_data[row])
         new_ui.exec()
 
 
+    # Display box edit window
     def open_box_edit_window(self, row):
+        """
+        Will display the box edit window with the correct data from the row the 
+        user clicked on.
+
+        Takes in a parameter "row" which is the data from the row that was 
+        double clicked.
+        """
         new_ui = EditBoxWindow(self)
         new_ui.pass_data(self.current_box_data[row])
         new_ui.exec()
@@ -73,18 +92,27 @@ class MainWindow(QMainWindow):
 
     # Open newFileWindow
     def open_new_file_window(self): 
+        """
+        Will display the new file window.
+        """
         new_ui = NewFileWindow(self)
         new_ui.exec()
 
 
     # Open newBoxWindow
     def open_new_box_window(self):
+        """
+        Will display the new box window.
+        """
         new_ui = NewBoxWindow(self)
         new_ui.exec()
 
 
     # Load data into tables on load
     def load_data(self):
+        """
+        Loads the data from the database into each of the tables.
+        """
         # Load Files
         data = select_all_from_files()
         self.load_file_table(data)
@@ -96,6 +124,10 @@ class MainWindow(QMainWindow):
 
     # Search for certain files in the database
     def file_search(self):
+        """
+        Searches for data in the file database based on the users search terms
+        and load the table with data that was retrieved.
+        """
         combo_box_text = self.ui.fileSearchComboBox.currentText()
         input_text = self.ui.fileSearchInput.text()
 
@@ -125,6 +157,10 @@ class MainWindow(QMainWindow):
 
     # Search for certain files in the database
     def box_search(self):
+        """
+        Searches for data in the box database based on the users search terms
+        and load the table with data that was retrieved.
+        """
         combo_box_text = self.ui.boxSearchComboBox.currentText()
         input_text = self.ui.boxSearchInput.text()
 
@@ -150,6 +186,9 @@ class MainWindow(QMainWindow):
 
     # Load the file table
     def load_file_table(self, data):
+        """
+        Loads data into the files table row by row.
+        """
         # Setting current data
         self.current_file_data = data
 
@@ -169,6 +208,9 @@ class MainWindow(QMainWindow):
     
     # Load the box table
     def load_box_table(self, data):
+        """
+        Loads data into the boxes table row by row.
+        """
         # Setting current data
         self.current_box_data = data
 
@@ -184,16 +226,27 @@ class MainWindow(QMainWindow):
 
     # Clear the file table
     def clear_file_table(self):
+        """
+        Clears the file table.
+        """
         self.ui.fileTable.setRowCount(0)
 
 
     # Clear the box table
     def clear_box_table(self):
+        """
+        Clears the box table.
+        """
         self.ui.boxTable.setRowCount(0)
 
 
     # Show popup messages
     def show_popup(self, popup_type, popup_msg):
+        """
+        Display a popup with either an error or success message.
+
+        This function takes a popup_type which is either Error or Succes, and a popup_msg to be displayed.
+        """
         # Setup the MessageBox
         msg = QMessageBox()
 

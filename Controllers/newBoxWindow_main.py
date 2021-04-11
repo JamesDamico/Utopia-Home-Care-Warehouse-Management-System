@@ -20,7 +20,12 @@ class NewBoxWindow(QDialog):
         self.ui.manualRadioButton.toggled.connect(lambda: self.toggle_line_edit(False))
         self.ui.autoGenRadioButton.toggled.connect(lambda: self.toggle_line_edit(True))
 
+
+    # Add a box to the database
     def add_box(self):
+        """
+        Adds a box to the database.
+        """
         # Check to see if user selected a radio button
         if not self.ui.manualRadioButton.isChecked() and not self.ui.autoGenRadioButton.isChecked():
             self.show_popup("Error", "Must select Manual or Auto Generate")
@@ -66,7 +71,14 @@ class NewBoxWindow(QDialog):
         self.parent().load_data()
 
 
+    # Toggles the line edit
     def toggle_line_edit(self, toggle_state):
+        """
+        Will toggle the line edit between active and inactive based on what 
+        radio button is selected.
+        
+        Takes in toggle_state as a boolean.
+        """
         # If True disable, if False enable
         self.ui.boxNumberInput.setDisabled(toggle_state)
 
@@ -75,7 +87,13 @@ class NewBoxWindow(QDialog):
             self.ui.boxNumberInput.clear()
 
 
+    # Error/Info Popups
     def show_popup(self, popup_type, popup_msg):
+        """
+        Display a popup with either an error or success message.
+
+        This function takes a popup_type which is either Error or Succes, and a popup_msg to be displayed.
+        """
         # Setup the MessageBox
         msg = QMessageBox()
 

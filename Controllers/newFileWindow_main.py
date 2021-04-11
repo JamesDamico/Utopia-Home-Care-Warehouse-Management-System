@@ -17,7 +17,11 @@ class NewFileWindow(QDialog):
         self.ui.cancelButton.clicked.connect(lambda: self.close())
 
     
+    # Add a file to the database
     def add_file(self):
+        """
+        Adds a file to the database.
+        """
         # Check if any fields are empty
         if self.ui.boxNumberInput.text() == "":
             msg = "Box Number can't be empty"
@@ -62,7 +66,13 @@ class NewFileWindow(QDialog):
         self.parent().load_data()
 
 
+    # Error/Info Popups
     def show_popup(self, popup_type, popup_msg):
+        """
+        Display a popup with either an error or success message.
+
+        This function takes a popup_type which is either Error or Succes, and a popup_msg to be displayed.
+        """
         # Setup the MessageBox
         msg = QMessageBox()
 

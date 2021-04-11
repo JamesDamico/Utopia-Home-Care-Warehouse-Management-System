@@ -21,7 +21,12 @@ class EditFileWindow(QDialog):
         # Connect deleteButton to delete_file()
         self.ui.deleteButton.clicked.connect(lambda: self.delete_file())
 
+
+    # Save a file
     def save_file(self):
+        """
+        Save changes made to the current files's data.
+        """
         # Check if any fields are empty
         if self.ui.boxNumberInput.text() == "NULL":
             msg = "Must assign a box number to this file"
@@ -44,18 +49,20 @@ class EditFileWindow(QDialog):
             self.show_popup("Error", msg)
             return
         
+        # Check if the box number in the input field exists
         try:
             exists = box_number_exists(self.ui.boxNumberInput.text())
         except:
             self.show_popup("Error", "Box Number must be a whole number")
             return
 
-        # Check if the box number exists
+        # If box doesn't exist then warn the user
         if not exists:
             msg = f"Box {self.ui.boxNumberInput.text()} does not exist. Either enter a different box number or create a new box."
             self.show_popup("Error", msg)
             return
 
+        # Try to save the data
         try:
             form_data = (self.ui.boxNumberInput.text(),
                 self.ui.typeComboBox.currentText(),
@@ -75,9 +82,13 @@ class EditFileWindow(QDialog):
     
     # Delete a file
     def delete_file(self):
+        """
+        Delete a file from the database.
+        """
         # Confirm user wants to delete file
         delete = self.delete_file_confirmation()
 
+        # If user confirms they want to delete, then try to do it
         if delete:
             try:
                 delete_file(self.data[0])
@@ -89,8 +100,12 @@ class EditFileWindow(QDialog):
         self.close()
         self.parent().load_data()
 
+
     # Confirm you want to delete the box
     def delete_file_confirmation(self):
+        """
+        Prompts the user to confirm if they want to delete the file from the database.
+        """
         msg = f"Are you sure you want to delete {self.data[4]} {self.data[3]}'s file? This action cannot be undone."
 
         reply = QMessageBox.question(self, "Delete Box",
@@ -105,6 +120,11 @@ class EditFileWindow(QDialog):
 
     # Error/Info Popups   
     def show_popup(self, popup_type, popup_msg):
+        """
+        Display a popup with either an error or success message.
+
+        This function takes a popup_type which is either Error or Succes, and a popup_msg to be displayed.
+        """
         # Setup the MessageBox
         msg = QMessageBox()
 
